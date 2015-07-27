@@ -74,3 +74,9 @@ Si se quiere dar más ponderación, es posible usar el parámetro weight en los 
 ```
 
 Con esta configuración, 5 peticiones nuevas se distribuirán de la siguiente forma: 3 a srv1, 1 a srv2 y 1 a srv3.
+
+## Control de Estado (Health checks)
+
+Si un servidor falla, nginx lo marcará como en mal estado y evitará enviarle peticiones
+
+
