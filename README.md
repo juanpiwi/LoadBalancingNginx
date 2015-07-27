@@ -4,3 +4,22 @@
 + **Least-connected**: La siguiente petición se asigna al servidor con menos conexiones activas
 + **ip-hash**: Se usa una función *hash* para determinar el servidor al que debería enviarse la siguiente petición, basandose en la ip del cliente
 
+## Configuración por defecto
+
+```sh
+http {
+    upstream myapp1 {
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}
+```
