@@ -41,7 +41,7 @@ upstream myapp1 {
 }
 ```
 
-## Session persistence
+## Session persistence (ip-hash)
 
 Se debe tener en cuenta que con *round-robbin* o *least-connected*, la solicitud de cada cliente subsiguiente puede ser distribuido un servidor diferente. No existe garantía que el mismo cliente se dirija al mismo servidor
 
@@ -51,3 +51,26 @@ Con *ip-hash*, la dirección IP del cliente se utiliza como hash para determinar
 
 Para configura el **ip-hash** load balancing, solo se tiene que agregar la directiva *ip_hash* a la configuración 
 
+
+```sh
+upstream myapp1 {
+    ip_hash;
+    server srv1.example.com;
+    server srv2.example.com;
+    server srv3.example.com;
+}
+```
+
+## Balanceo ponderado
+
+Si se quiere dar más ponderación, es posible usar el parámetro weight en los servidores, para asignarles más “peso” a la hora de tomar decisiones de balanceo:
+
+```sh
+ upstream myapp1 {
+        server srv1.example.com weight=3;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+```
+
+Con esta configuración, 5 peticiones nuevas se distribuirán de la siguiente forma: 3 a srv1, 1 a srv2 y 1 a srv3.
