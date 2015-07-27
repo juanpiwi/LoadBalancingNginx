@@ -40,3 +40,14 @@ upstream myapp1 {
         server srv3.example.com;
 }
 ```
+
+## Session persistence
+
+Se debe tener en cuenta que con *round-robbin* o *least-connected*, la solicitud de cada cliente subsiguiente puede ser distribuido un servidor diferente. No existe garantía que el mismo cliente se dirija al mismo servidor
+
+Si existe la necesidad de atar a un cliente a un servidor de aplicaciones en particular, se puede utilizar el método **ip-hash** para persistir siempre en un servidor determinado
+
+Con *ip-hash*, la dirección IP del cliente se utiliza como hash para determinar que servidor en un grupo de servidores se debe seleccionar para la solicitudes del cliente. Este método garantiza que las solicitudes de un mismo cliente siempre serán dirigidos al mismo servidor, excepto cuando este servidor no está disponible
+
+Para configura el **ip-hash** load balancing, solo se tiene que agregar la directiva *ip_hash* a la configuración 
+
